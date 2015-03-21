@@ -28,9 +28,10 @@ var xhr = function (type, url, data) {
   })
 }
 
-exports.post = function(url, data) {
+module.exports.post = function(url, data) {
   return xhr('POST', url, JSON.stringify(data))
 }
-exports.get = function(url) {
+
+module.exports.get = function(url) {
   return xhr('GET', url)
 }
