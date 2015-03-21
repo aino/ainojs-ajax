@@ -27,5 +27,5 @@ Usage example:
 
 Methods:
 
-   Ajax.get(url)           // performs an ajax GET request to [url] and returns a promise
-   Ajax.post(url, [data])  // performs an ajax POST request to [url] and returns a promise
+    Ajax.get(url)           // performs an ajax GET request to [url] and returns a promise
+    Ajax.post(url, [data])  // performs an ajax POST request to [url] and returns a promise
