@@ -12,15 +12,13 @@
     <script src="../node_modules/mocha/mocha.js"></script>
     <script>
       mocha.ui('bdd')
-      mocha.reporter('html')
     </script>
     <script src="unit.bundle.js"></script>
     <script>
-      if (window.mochaPhantomJS) {
-        mochaPhantomJS.run();
-      } else {
-        mocha.run();
-      }
+      if (window.mochaPhantomJS)
+        mochaPhantomJS.run()
+      else
+        mocha.run()
     </script>
   </body>
 </html>

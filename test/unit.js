@@ -6,25 +6,40 @@ var assert = chai.assert
 var expect = chai.expect
 var should = chai.should()
 
-var xhr, requests
-
 describe('Requests', function() {
-  before(function () {
-    xhr = sinon.useFakeXMLHttpRequest()
-    requests = []
-    xhr.onCreate = function (req) { 
-      requests.push(req)
-    }
+  beforeEach(function() {
+    this.xhr = sinon.useFakeXMLHttpRequest()
+    this.requests = []
+    this.xhr.onCreate = function(xhr) {
+      this.requests.push(xhr)
+    }.bind(this)
+  })
+  afterEach(function() {
+    this.xhr.restore()
   })
 
-  after(function () {
-    xhr.restore()
+  it('should parse fetched data as JSON', function(done) {
+    var data = { foo: 'bar' }
+    var dataJson = JSON.stringify(data)
+    Ajax.get('/').then(function(result) {
+      result.should.deep.equal(data)
+      done()
+    })
+    this.requests[0].respond(200, { 'Content-Type': 'text/json' }, dataJson)
   })
 
-  it("makes a GET request", function () {
-    var callback = sinon.spy()
-    Ajax.get('/').then(callback)
-    assert(requests.length === 1, 'Request length is 1')
-    expect(requests[0].url).to.equal('/')
+  it('should send given data as JSON body', function() {
+      var data = { hello: 'world' }
+      var dataJson = JSON.stringify(data)
+      Ajax.post('/', data)
+      this.requests[0].requestBody.should.equal(dataJson)
   })
+
+  it('should return error into promise', function(done) {
+      Ajax.get('/').catch(function(err) {
+        err.should.exist
+        done()
+      })
+      this.requests[0].respond(500)
+  });
 })
