@@ -1,6 +1,6 @@
 {
   "name": "ainojs-ajax",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Minimal ajax library for JSON",
   "repository": {
     "type": "git",
