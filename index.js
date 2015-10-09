@@ -1,5 +1,7 @@
 var Promise = require('promise')
 
+var cnt = 0
+
 var parse = function (req) {
   var result
   try {
@@ -34,4 +36,35 @@ module.exports.post = function(url, data) {
 
 module.exports.get = function(url) {
   return xhr('GET', url)
+}
+
+module.exports.jsonp = function(url, data, cbname, timeout) {
+  cbname = cbname || 'callback'
+  timeout = timeout || 15000
+  return new Promise(function(resolve, reject) {
+    if ( typeof window == 'undefined' )
+      return reject('No document')
+    var global = 'jsonp'+Date.now()+btoa(navigator.userAgent).replace(/[^\d]+/g,'')+(cnt++)
+    var script = document.createElement('script')
+    var params = ''
+    var timer = setTimeout(function() {
+      window[global] = function() {
+        delete window[global]
+      }
+      document.body.removeChild(script)
+      reject(timeout+'ms timeout reached without response.')
+    }, timeout)
+    if ( typeof data == 'object' ) {
+      for ( var i in data )
+        params += '&'+i+'='+data[i]
+    }
+    script.src = url+'?'+cbname+'='+global+params
+    window[global] = function(response) {
+      clearTimeout(timer)
+      document.body.removeChild(script)
+      delete window[global]
+      resolve(response)
+    }
+    document.body.appendChild(script)
+  })
 }

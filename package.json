@@ -17,11 +17,11 @@
   },
   "author": "Aino",
   "devDependencies": {
-    "mocha-phantomjs": "^3.5.3",
+    "mocha-phantomjs": "^3.6.0",
+    "phantomjs": "1.9.7-15",
     "mocha": "^2.2.1",
     "chai": "^2.1.2",
     "browserify": "^9.0.3",
-    "phantomjs": "^1.9.16",
     "sinon": "^1.14.1"
   },
   "dependencies": {
