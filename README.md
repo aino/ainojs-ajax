@@ -26,6 +26,13 @@ Usage example:
     })
 
 Methods:
+    
+    // performs an ajax GET request to [url] and returns a promise
+    Ajax.get(url)
 
-    Ajax.get(url)           // performs an ajax GET request to [url] and returns a promise
-    Ajax.post(url, [data])  // performs an ajax POST request to [url] and returns a promise
+    // performs an ajax POST request to [url] and returns a promise
+    Ajax.post(url, [data])
+
+    // performs JSONP request to [url] and returns a promise. 
+    // callbackname defaults to "callback" and timeout to 15000ms 
+    Ajax.jsonp(url, [data], [callbackname], [timeout]) 
