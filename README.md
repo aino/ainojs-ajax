@@ -25,6 +25,13 @@ Usage example:
       console.log(response)
     })
 
+    Ajax.jsonp('http://en.wikiquote.org/w/api.php', {
+      action: 'opensearch',
+      search: 'kill'
+    }).then(function(response) {
+      console.log(response)
+    })
+
 Methods:
     
     // performs an ajax GET request to [url] and returns a promise
@@ -33,6 +40,6 @@ Methods:
     // performs an ajax POST request to [url] and returns a promise
     Ajax.post(url, [data])
 
-    // performs JSONP request to [url] and returns a promise. 
+    // performs a JSONP request to [url] and returns a promise. 
     // callbackname defaults to "callback" and timeout to 15000ms 
     Ajax.jsonp(url, [data], [callbackname], [timeout]) 
